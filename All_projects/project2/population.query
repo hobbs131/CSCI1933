@@ -1,0 +1,4 @@
+load population.db;
+select (country,country_code) from population where population > 100000000;
+select (country,population) from population where percentage_world_population > .05;
+exit;

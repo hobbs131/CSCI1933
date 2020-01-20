@@ -1,0 +1,5 @@
+call_number, section, name, first, last, taken, 
+String, String, int, String, String, boolean, 
+CSCI 1933, 001, 10, Chris, Dovolis, true, 
+CSCI 1933, 001, 19, Chris, Dovoli, true, 
+CSCI 1133, 002, 4, Chris, Dovolis, false, 

@@ -1,0 +1,71 @@
+.text
+.global  set_temp_from_ports
+
+set_temp_from_ports:
+
+        # Conditional checks to make sure THERMO_SENSOR_PORT is in bounds
+        cmpw $64000, THERMO_SENSOR_PORT(%rip)
+        ja .RETURN_1
+        cmpw $0, THERMO_SENSOR_PORT(%rip)
+        jb .RETURN_1
+
+        # Conditional checks to make sure THERMO_STATUS_PORT is a valid input (0 or 1)
+        cmpb $1, THERMO_STATUS_PORT(%rip)
+        ja .RETURN_1
+        cmpb $0, THERMO_STATUS_PORT(%rip)
+        jb .RETURN_1
+
+        # Zero out registers for THERMO_STATUS/SENSOR_PORT
+        xorq %rcx, %rcx
+        xorq %r8, %r8
+
+        # Put ports in respective registers
+        movb THERMO_STATUS_PORT(%rip), %cl
+        movw THERMO_SENSOR_PORT(%rip), %r8w
+
+        # Add operation for conversion to tenths
+        addl $32, %r8d
+
+        # Divide operation for conversion to tenths
+        xorq %rax, %rax
+        xorq %rdx, %rdx
+        movl %r8d, %eax
+        cdq
+        movl $64, %r8d
+        idivl %r8d
+        movl %eax, %r8d
+
+        # Subtraction operation for conversion to tenths
+        subl $500, %r8d
+
+        # If statement for fahrenheit
+        cmpb $1, %cl
+        jne .RETURN_0
+
+        # Multiply operation for conversion to fahrenheit tenths
+        movl %r8d, %eax
+        imull $9, %r8d
+
+        # Divide operation for conversion to fahrenheit tenths
+        xorq %rax, %rax
+        xorq %rdx, %rdx
+        movl %r8d, %eax
+        cdq
+        movl $5, %r8d
+        idivl %r8d
+        movl %eax, %r8d
+
+        # Add operation for conversion to fahrenheit tenths
+        addl $320, %r8d
+
+  # RETURN labels for error and success
+  .RETURN_1:
+        movq $1, %rax
+        ret
+
+  .RETURN_0:
+        movw %r8w, (%rdi)
+        addq $2, %rdi
+        movb %cl, (%rdi)
+        movq $0, %rax
+        ret

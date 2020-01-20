@@ -1,0 +1,21 @@
+Time complexity analysis:
+
+Append statement: Time complexity: O(n) - method loops through the list once (one while loop)
+
+Add statement: Time complexity:  O(1) - no loops so the code is ran through once
+
+Print statement: Time complexity: O(n) - method loops through the list once (one while loop)
+
+Remove statement: Time complexity: O(n) - method loops through the list once (one while loop)
+
+Sort statement: Time complexity: O(n^2) - nested for loops to sort the list (two for loops)
+
+Concatenate statement: Time complexity: O(n) - method loops through the list once (one while loop)
+
+Delete statement: Time complexity: - O(n) - method loops through the list once (one while loop)
+
+Get statement: Time complexity: O(n) - method loops through the list once (one while loop)
+
+Length statement: Time complexity: O(1) - no loops so the code is ran through once
+
+Insert statement: Time complexity: O(n) - two while loops but not nested
