@@ -12,3 +12,5 @@ Data structures used: queue and stack // complicated algorithms are explained th
   It's also easy to add to and remove from therefore it was a good idea to use this for temporary storage.
 
 Bugs/known issues: None known
+
+Bus simulator.pdf details the findings of this project
